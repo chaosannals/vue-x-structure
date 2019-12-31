@@ -32,7 +32,10 @@ export default {
     };
   },
   props: {
-    name: String
+    name: String,
+    value: {
+      default: null
+    }
   },
   computed: {
     selection: {
@@ -69,7 +72,7 @@ export default {
      */
     hookOptionSelect() {
       let newOptions = {};
-      for (let option of this.$slots.default) {
+      for (let option of this.$slots.default || []) {
         if (option.componentOptions.tag == "x-structure-option") {
           let id = option.componentInstance._uid;
           newOptions[id] = option;
@@ -83,7 +86,7 @@ export default {
       }
       for (let id of Object.keys(this.options)) {
         if (!newOptions[id]) {
-          this.options[id].$off("x-select");
+          this.options[id].componentInstance.$off("x-select");
         }
       }
       this.options = newOptions;
@@ -99,6 +102,14 @@ export default {
       subtree: true
     });
     this.hookOptionSelect();
+
+    // 初始化值。
+    for (let i of Object.keys(this.options)) {
+      let option = this.options[i];
+      if (option.componentInstance.value == this.value) {
+        this.option = option;
+      }
+    }
   },
   beforeDestroy() {
     // 清除钩子
@@ -116,6 +127,9 @@ export default {
   border: 1px solid #e7e7e7;
 
   .content {
+    display: flex;
+    align-content: center;
+    justify-content: center;
     position: absolute;
     top: 0;
     left: 0;
@@ -137,6 +151,8 @@ export default {
     position: absolute;
     left: 0;
     right: 0;
+    z-index: 100;
+    background: white;
     box-shadow: 0 0 6px 0 #0002;
   }
 }
