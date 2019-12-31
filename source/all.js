@@ -1,7 +1,7 @@
-import XConditionStructure from './structures/Condition.vue';
+import XConditionEditor from './structures/ConditionEditor.vue';
 
 export default {
     install(Vue) {
-        Vue.component('x-condition-structure', XConditionStructure);
+        Vue.component('x-condition-editor', XConditionEditor);
     },
 };

@@ -1,16 +1,16 @@
 <template>
   <div class="about">
-    <x-condition-structure v-model="condition" :fields="fields" />
+    <x-condition-box v-model="condition" :fields="fields" />
   </div>
 </template>
 
 <script>
-import XConditionStructure from "@source/widgets/Condition";
+import XConditionBox from "@source/components/ConditionBox.vue";
 
 export default {
   name: "about-page",
   components: {
-    XConditionStructure
+    XConditionBox
   },
   data() {
     return {

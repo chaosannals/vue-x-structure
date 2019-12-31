@@ -1,17 +1,13 @@
 <template>
   <div class="about">
-    <x-condition-structure v-model="condition" :fields="fields" />
+    <x-condition-editor v-model="condition" :fields="fields" />
   </div>
 </template>
 
 <script>
-import XConditionStructure from "@source/widgets/Condition";
 
 export default {
   name: "about-page",
-  components: {
-    XConditionStructure
-  },
   data() {
     return {
       condition: null,

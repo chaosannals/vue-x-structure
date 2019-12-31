@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 const routes = [{
   path: '/',
   name: 'about',
-  component: () => import('@/views/About.vue')
+  component: () => import('@/views/One.vue')
 }]
 
 const router = new VueRouter({
