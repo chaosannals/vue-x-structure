@@ -15,14 +15,20 @@
           <div class="type-option">或</div>
         </x-structure-option>
       </x-structure-select>
-      <div v-if="isGroup" class="add-action" @click="onClickAdd">
+      <button v-if="isGroup" class="add-button" @click="onClickAdd">
         <span>+</span>
-      </div>
+      </button>
     </div>
     <div v-if="isGroup" class="group">
       <div v-for="(c, i) in conditions" :key="c.id" class="condition-row">
         <x-condition-structure v-model="c.condition" :fields="fields" class="condition" />
-        <div class="flow-button sub" @click="onClickSub(i)">-</div>
+        <button
+          class="flow-button sub-button"
+          :disabled="conditions.length <= 2"
+          @click="onClickSub(i)"
+        >
+          <span>-</span>
+        </button>
       </div>
     </div>
     <x-condition-item v-else v-model="condition" :fields="fields" class="item" />
@@ -104,9 +110,11 @@ export default {
 
   .action-pane {
     display: inline-flex;
-    flex-flow: column;
+    flex-flow: row;
+    align-items: center;
+    justify-content: center;
 
-    .add-action {
+    .add-button {
       display: inline-flex;
       align-items: center;
       justify-content: center;
@@ -119,6 +127,7 @@ export default {
       color: white;
       background: #37f;
       user-select: none;
+      outline: none;
 
       &:hover {
         background: #7bf;
@@ -172,11 +181,21 @@ export default {
       align-items: center;
       justify-content: center;
       width: 10px;
+      margin: 0;
+      padding: 0;
       color: white;
       border: 1px solid #e7e7e7;
       user-select: none;
-      &.sub {
-        background: red;
+
+      &.sub-button {
+        background: #f00;
+
+        &:enabled {
+          background-color: #f00 !important;
+        }
+        &:disabled {
+          background-color: #666 !important;
+        }
       }
     }
   }
